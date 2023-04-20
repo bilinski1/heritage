@@ -1,16 +1,14 @@
-package com.minimalistic.lajn.achievement;
+package com.heritage.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 import org.springframework.stereotype.Component;
-
-import com.minimalistic.lajn.user.User;
 
 import lombok.Data;
 
@@ -19,7 +17,7 @@ import lombok.Data;
 @Entity
 @Table(name = "achievements")
 @Data
-public class Achievement {
+public class AchievementEntity {
 	
 
 	@Id
@@ -31,7 +29,7 @@ public class Achievement {
 	private String description;
 	@Column(name = "published_on")
 	private java.sql.Timestamp publishedOn;
-	public Achievement() {
+	public AchievementEntity() {
 	}
 
 }

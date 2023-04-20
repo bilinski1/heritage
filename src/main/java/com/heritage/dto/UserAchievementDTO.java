@@ -1,4 +1,4 @@
-package com.minimalistic.lajn.dto;
+package com.heritage.dto;
 
 import lombok.Data;
 
@@ -10,7 +10,6 @@ public class UserAchievementDTO {
 		private String email;
 		private Integer age;
 		private String achievement;
-
-	
+		
 
 }

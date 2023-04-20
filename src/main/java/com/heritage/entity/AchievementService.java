@@ -1,7 +1,9 @@
-package com.minimalistic.lajn.achievement;
+package com.heritage.entity;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.heritage.repository.AchievementRepository;
 
 @Service
 public class AchievementService {
@@ -9,19 +11,19 @@ public class AchievementService {
 	@Autowired
 	private AchievementRepository achievementRepository;
 	
-	public Achievement saveAchievement(Achievement achievement) {
+	public AchievementEntity saveAchievement(AchievementEntity achievement) {
 		return achievementRepository.save(achievement);
 	}
 	
-	public List<Achievement> getAchievements(){
+	public List<AchievementEntity> getAchievements(){
 		return achievementRepository.findAll();
 	}
 	
-	public Achievement getAchievementById(long id) {
+	public AchievementEntity getAchievementById(long id) {
 		return achievementRepository.findById(id).orElse(null);
 	}
 	
-	public Achievement getAchievementByName(String name) {
+	public AchievementEntity getAchievementByName(String name) {
 		return achievementRepository.findByName(name);
 	}
 }
