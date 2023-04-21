@@ -15,9 +15,9 @@ public class ProjectSecurityConfig {
          *  Below is the custom security configurations
          */
 
-        http.authorizeHttpRequests()
+        http.csrf().disable().authorizeHttpRequests()
               //  .requestMatchers("/*").authenticated()
-                .requestMatchers("/users/**","/login").permitAll()
+                .requestMatchers("/users/**","/login", "/register").permitAll()
                 .anyRequest().permitAll()
                 .and().formLogin()
                 .and().httpBasic();

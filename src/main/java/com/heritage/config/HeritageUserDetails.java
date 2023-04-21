@@ -10,10 +10,12 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import com.heritage.entity.UserEntity;
 import com.heritage.repository.UserRepository;
 
+@Service
 public class HeritageUserDetails implements UserDetailsService {
 	
 	@Autowired
