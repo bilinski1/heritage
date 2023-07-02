@@ -30,7 +30,7 @@ public class HeritageUserDetails implements UserDetailsService {
             throw new UsernameNotFoundException("User details not found for the user : " + username);
         } else{
             userName = user.get(0).getEmail();
-            password = user.get(0).getPwd();
+            password = user.get(0).getEncryptedPassword();
             authorities = new ArrayList<>();
             authorities.add(new SimpleGrantedAuthority(user.get(0).getRole()));
         }

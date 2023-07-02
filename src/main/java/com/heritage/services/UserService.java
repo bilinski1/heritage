@@ -12,6 +12,7 @@ import org.modelmapper.spi.MatchingStrategy;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.heritage.dto.UserAchievementDTO;
@@ -19,6 +20,8 @@ import com.heritage.dto.UserDTO;
 
 import com.heritage.entity.UserEntity;
 import com.heritage.repository.UserRepository;
+import com.heritage.requestmodel.UserDetailsRequestModel;
+import com.heritage.utils.Utils;
 
 
 
@@ -35,7 +38,16 @@ public class UserService {
 	UserRepository userRepository;
 	
 	@Autowired
+	UserDetailsRequestModel userDetailsRequestModel;
+	
+	@Autowired
 	UserDTO userDTO;
+	
+	@Autowired
+	BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	@Autowired
+	Utils utils;
 	
 	
 
@@ -49,13 +61,17 @@ public class UserService {
 	}
 	
 	//Create User (using model mapper)
-	public UserEntity createUser(UserDTO userDto) {
+	public UserDTO createUser(UserDTO userDto) {
 		modelMapper.getConfiguration()
 		.setMatchingStrategy(MatchingStrategies.LOOSE);
-		UserEntity user = new UserEntity();
-    	user = modelMapper.map(userDto, UserEntity.class);
-    	userRepository.save(user);
-    	return user;
+		UserEntity userEntity = modelMapper.map(userDto, UserEntity.class);
+    	String publicUserId = utils.generateUserId(12);
+		userEntity.setUserId(publicUserId);
+    	userEntity.setEncryptedPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
+    	UserEntity storedUserDetails = userRepository.save(userEntity);
+    	UserDTO returnValue = modelMapper.map(storedUserDetails, UserDTO.class);
+    	return returnValue;
+    	
 
 	
 	}

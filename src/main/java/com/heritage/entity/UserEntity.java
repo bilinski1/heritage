@@ -29,10 +29,12 @@ public class UserEntity {
 	@Id @GeneratedValue(generator="system-uuid")
 	@GenericGenerator(name="system-uuid", strategy = "uuid")
 	private String id;
+	@Column(name = "userID")
+	private String userId;
 	@Column(name = "email")
     private String email;
-	@Column(name = "password")
-    private String pwd;
+	@Column(name = "encrypted_password")
+    private String encryptedPassword;
 	@Column(name = "role")
     private String role;
 	@Column(name = "first_name")
@@ -46,7 +48,13 @@ public class UserEntity {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "achievement_id", referencedColumnName = "id")
 	private List<AchievementEntity> achievement = new ArrayList<>();
+
+
+	//public void setEncryptedPassword(String encryptedPassword) {
+	//	this.Password = encryptedPassword;
+		// TODO Auto-generated method stub
+		
+	}
 	
 
-}
 

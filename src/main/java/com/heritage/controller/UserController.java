@@ -17,6 +17,8 @@ import com.heritage.dto.UserAchievementDTO;
 import com.heritage.dto.UserDTO;
 
 import com.heritage.entity.UserEntity;
+import com.heritage.requestmodel.UserDetailsRequestModel;
+import com.heritage.response.UserResponse;
 import com.heritage.services.UserService;
 
 @RestController
@@ -36,12 +38,17 @@ public class UserController {
 
 	//Create User
 	 @PostMapping("/newuser")
-	 public UserEntity createUser(@RequestBody UserEntity user)
+	 public UserResponse createUser(@RequestBody UserDetailsRequestModel user)
 	 {
+		 
+		 UserResponse returnValue = new UserResponse();
 		 UserDTO userDto = new UserDTO();
 		 BeanUtils.copyProperties(user, userDto);
 		 System.out.println("User Created");
-		 return userService.createUser(userDto);
+		 UserDTO createdUser = userService.createUser(userDto);
+		 BeanUtils.copyProperties(createdUser, returnValue);
+		 return returnValue;
+		 
 	 }
 	 
 	 //Update User
