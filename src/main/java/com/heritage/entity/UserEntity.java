@@ -31,8 +31,8 @@ public class UserEntity {
 	private String id;
 	@Column(name = "userID")
 	private String userId;
-	@Column(name = "email")
-    private String email;
+	@Column(nullable=false, length=120)
+	public String email;
 	@Column(name = "encrypted_password")
     private String encryptedPassword;
 	@Column(name = "role")
@@ -47,7 +47,7 @@ public class UserEntity {
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "achievement_id", referencedColumnName = "id")
-	private List<AchievementEntity> achievement = new ArrayList<>();
+	private List<UserProject> achievement = new ArrayList<>();
 
 
 	//public void setEncryptedPassword(String encryptedPassword) {

@@ -17,7 +17,7 @@ import lombok.Data;
 @Entity
 @Table(name = "achievements")
 @Data
-public class AchievementEntity {
+public class UserProject {
 	
 
 	@Id
@@ -29,7 +29,7 @@ public class AchievementEntity {
 	private String description;
 	@Column(name = "published_on")
 	private java.sql.Timestamp publishedOn;
-	public AchievementEntity() {
+	public UserProject() {
 	}
 
 }

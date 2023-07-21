@@ -7,8 +7,9 @@ import lombok.Data;
 
 @Component
 @Data
-public class UserDTO {
+public class UserDto {
 	private String id;
+    private String userId;
 	private String firstName;
 	private String lastName;
 	private Integer age;

@@ -11,19 +11,19 @@ public class AchievementService {
 	@Autowired
 	private AchievementRepository achievementRepository;
 	
-	public AchievementEntity saveAchievement(AchievementEntity achievement) {
+	public UserProject saveAchievement(UserProject achievement) {
 		return achievementRepository.save(achievement);
 	}
 	
-	public List<AchievementEntity> getAchievements(){
+	public List<UserProject> getAchievements(){
 		return achievementRepository.findAll();
 	}
 	
-	public AchievementEntity getAchievementById(long id) {
+	public UserProject getAchievementById(long id) {
 		return achievementRepository.findById(id).orElse(null);
 	}
 	
-	public AchievementEntity getAchievementByName(String name) {
+	public UserProject getAchievementByName(String name) {
 		return achievementRepository.findByName(name);
 	}
 }

@@ -13,5 +13,6 @@ public class UserDetailsRequestModel {
 	private String lastName;
 	private Integer age;
 	private String password;
+	private String email;
 
 }

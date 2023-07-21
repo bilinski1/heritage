@@ -1,4 +1,4 @@
-package com.heritage.config;
+/*package com.heritage.config;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ import com.heritage.repository.UserRepository;
 public class HeritageUserDetails implements UserDetailsService {
 	
 	@Autowired
-	UserRepository userRepository;
+//	UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -38,3 +38,4 @@ public class HeritageUserDetails implements UserDetailsService {
     }
 
 }
+*/
