@@ -1,9 +1,9 @@
-package com.heritage.requestmodel;
+package com.heritage.dto;
 
 import lombok.Data;
 
 @Data
-public class UserLoginRequestModel {
+public class SigninRequest {
 	private String email;
 	private String password;
 

@@ -1,6 +1,11 @@
 package com.heritage;
 
+import com.heritage.entity.Role;
+import com.heritage.entity.UserEntity;
+import com.heritage.repository.UserRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
@@ -12,7 +17,11 @@ import com.heritage.config.SpringApplicationContext;
 
 
 @SpringBootApplication //(exclude={SecurityAutoConfiguration.class})
-public class LajnApplication {
+public class LajnApplication implements CommandLineRunner {
+
+	@Autowired
+	private UserRepository userRepository;
+
 	
 	//Model mapper for DTO
 	@Bean
@@ -28,10 +37,20 @@ public class LajnApplication {
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
-	@Bean
-	public SpringApplicationContext springApplicationContext() {
-		return new SpringApplicationContext();
-	}
 
+
+	@Override
+	public void run(String... args) throws Exception {
+		UserEntity adminAccount = userRepository.findByRole(Role.ADMIN);
+		if(null == adminAccount){
+			UserEntity user = new UserEntity();
+
+			user.setEmail("admin@gmail.com");
+			user.setFirstName("admin");
+			user.setLastName("admin");
+			user.setRole(Role.ADMIN);
+			user.setPassword(new BCryptPasswordEncoder().encode("admin"));
+			userRepository.save(user);
+		}
+	}
 }

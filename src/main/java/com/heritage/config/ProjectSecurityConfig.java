@@ -1,3 +1,4 @@
+/*
 package com.heritage.config;
 
 import org.springframework.context.annotation.Bean;
@@ -9,7 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.heritage.services.UserServiceImpl;
+import com.heritage.services.impl.UserServiceImpl;
 
 @Configuration
 @EnableWebSecurity
@@ -31,9 +32,6 @@ public class ProjectSecurityConfig {
         authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
     	
         AuthenticationManager authenticationManager = authenticationManagerBuilder.build();
-        /**
-         *  Below is the custom security configurations
-         */
 
         http.csrf().disable().authorizeHttpRequests()
               //  .requestMatchers("/*").authenticated()
@@ -44,9 +42,10 @@ public class ProjectSecurityConfig {
         		.and()
         		.authenticationManager(authenticationManager)
         		.addFilter(new AuthenticationFilter(authenticationManager));
-        
+
         return http.build();
 
 
 }
 }
+*/

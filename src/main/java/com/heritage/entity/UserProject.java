@@ -1,12 +1,6 @@
 package com.heritage.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import org.springframework.stereotype.Component;
 
@@ -29,7 +23,9 @@ public class UserProject {
 	private String description;
 	@Column(name = "published_on")
 	private java.sql.Timestamp publishedOn;
-	public UserProject() {
-	}
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
+	private UserEntity user;
 
 }
