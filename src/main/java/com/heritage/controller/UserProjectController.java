@@ -1,7 +1,6 @@
 package com.heritage.controller;
 
 import com.heritage.dto.UserProjectDto;
-import com.heritage.entity.UserProject;
 import com.heritage.services.UserProjectService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -41,18 +41,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }
 
         return user;
-
-        /*
-        UserEntity user = new UserEntity();
-        UserEntity userEntity = modelMapper.map(userDto, UserEntity.class);
-        if (userRepository.findByEmail(userDto.getEmail()).isPresent()) throw new RuntimeException("Record already exists");
-        String publicUserId = utils.generateUserId(12);
-        user.setUserId(publicUserId);
-        user.setRole(Role.USER);
-        user.setPassword(bCryptPasswordEncoder.encode(userDto.getPassword()));
-        userRepository.save(user);
-        return user;
-*/
     }
 
 

@@ -17,9 +17,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserProjectServiceImpl implements UserProjectService {
 
-    private final UserProject userProject;
-    private UserProjectRepository userProjectRepository;
-    private ModelMapper modelMapper;
+    private final UserProjectRepository userProjectRepository;
+    ModelMapper modelMapper = new ModelMapper();
+
 
     @Override
     public UserProjectDto addUserProject(UserProjectDto userProjectDto) {

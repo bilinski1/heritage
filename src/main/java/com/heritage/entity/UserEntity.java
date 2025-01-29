@@ -3,7 +3,6 @@ package com.heritage.entity;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 import jakarta.persistence.*;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -46,11 +45,9 @@ public class UserEntity implements UserDetails {
 	private Integer age;
 	@Column(name = "role")
 	private Role role;
-
 	
-	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-//	@JoinColumn(name = "achievement_id", referencedColumnName = "id")
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "user_id", referencedColumnName = "id")
 	private List<UserProject> achievements = new ArrayList<>();
 
 	@Override
