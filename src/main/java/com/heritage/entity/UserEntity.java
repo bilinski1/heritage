@@ -46,8 +46,8 @@ public class UserEntity implements UserDetails {
 	@Column(name = "role")
 	private Role role;
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	@JoinColumn(name = "user_id", referencedColumnName = "id")
+	@OneToMany(mappedBy = "userEntity", cascade = CascadeType.ALL, orphanRemoval = true)
+	//@JoinColumn(name = "user_id", referencedColumnName = "id")
 	private List<UserProject> achievements = new ArrayList<>();
 
 	@Override
