@@ -3,17 +3,23 @@ package com.heritage.services.impl;
 import com.heritage.dto.*;
 import com.heritage.entity.Role;
 import com.heritage.entity.UserEntity;
+import com.heritage.entity.UserProject;
 import com.heritage.repository.UserRepository;
 import com.heritage.services.AuthenticationService;
 import com.heritage.services.JWTService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -48,14 +54,20 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signinRequest.getEmail(),
                 signinRequest.getPassword()));
 
+
         var user = userRepository.findByEmail(signinRequest.getEmail()).orElseThrow(() -> new IllegalArgumentException("Invalid email or password."));
         var jwt = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(new HashMap<>(), user);
+;
 
         JwtAuthenticationResponse jwtAuthenticationResponse = new JwtAuthenticationResponse();
-
+        jwtAuthenticationResponse.setEmail(user.getEmail());
+        jwtAuthenticationResponse.setAge(user.getAge());
         jwtAuthenticationResponse.setToken(jwt);
         jwtAuthenticationResponse.setRefreshToken(refreshToken);
+        jwtAuthenticationResponse.setRole(Role.USER);
+        jwtAuthenticationResponse.setProjects(new ArrayList<>(user.getAchievements()));
+
         return jwtAuthenticationResponse;
     }
 

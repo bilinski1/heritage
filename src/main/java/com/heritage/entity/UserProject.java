@@ -1,5 +1,6 @@
 package com.heritage.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,14 +18,9 @@ public class UserProject {
 	private String name;
 	@Column(name = "description")
 	private String description;
-
-	@ManyToOne
-	@JoinColumn(name = "user_id")
-	private UserEntity userEntity;
-
-
-	//@OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
-	//private Set<UserProject> userProjects;
-
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id", nullable = false)
+	@JsonBackReference
+	private UserEntity user;
 
 }
