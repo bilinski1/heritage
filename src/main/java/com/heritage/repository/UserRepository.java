@@ -1,19 +1,20 @@
 package com.heritage.repository;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import com.heritage.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 
-import com.heritage.entity.UserEntity;
+import com.heritage.entity.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<UserEntity, Long> {
-	Optional<UserEntity> findByEmail(String email);
-	UserEntity findByRole(Role role);
+public interface UserRepository extends JpaRepository<User, Long> {
+	Optional<User> findByEmail(String email);
+	User findByRole(Role role);
+	User findByPublicId(String publicId);
 	boolean existsByEmail(String email);
 
 

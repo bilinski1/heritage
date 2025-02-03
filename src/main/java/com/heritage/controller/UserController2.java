@@ -34,11 +34,6 @@ public class UserController {
 		return ResponseEntity.ok("Hi User");
 	}
 
-	//Get particular user by ID
-	 @GetMapping("/{id}")
-	 public ResponseEntity<UserDto> getUserById(@PathVariable(name = "id") String id){
-		 return ResponseEntity.ok(userService.getUserById(id));
-	 }
 
 	//Create User
 	 @PostMapping("/newuser")

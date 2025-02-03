@@ -1,7 +1,7 @@
 package com.heritage;
 
 import com.heritage.entity.Role;
-import com.heritage.entity.UserEntity;
+import com.heritage.entity.User;
 import com.heritage.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-
+import java.util.UUID;
 
 
 @SpringBootApplication //(exclude={SecurityAutoConfiguration.class})
@@ -39,10 +38,11 @@ public class LajnApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		UserEntity adminAccount = userRepository.findByRole(Role.ADMIN);
+		User adminAccount = userRepository.findByRole(Role.ADMIN);
 		if(null == adminAccount){
-			UserEntity user = new UserEntity();
-
+			User user = new User();
+			String uniqueID = UUID.randomUUID().toString();
+			user.setPublicId(uniqueID);
 			user.setEmail("admin@gmail.com");
 			user.setFirstName("admin");
 			user.setLastName("admin");

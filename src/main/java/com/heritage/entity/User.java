@@ -14,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Data;
+import java.util.UUID;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,14 +26,12 @@ import org.springframework.stereotype.Component;
 @Entity
 @Table
 @Data
-public class UserEntity implements UserDetails {
+public class User implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-//	@GeneratedValue(generator="system-uuid")
-//	@GenericGenerator(name="system-uuid", strategy = "uuid")
-//	@Column(name = "userID")
-//	private String userId;
+	@Column(name = "publicId", updatable = false, nullable = false)
+	private String publicId;
 	@Column(nullable=false, length=120, name = "email")
 	public String email;
 	@Column(name = "password")
@@ -47,16 +46,20 @@ public class UserEntity implements UserDetails {
 	private Role role;
 	private String token;
 	private String refreshToken;
-	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference
 	private List<UserProject> achievements = new ArrayList<>();
-
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return List.of(new SimpleGrantedAuthority(role.name()));
 	}
 
+
+	public User() {
+		if (publicId == null) {
+			publicId = UUID.randomUUID().toString(); // Generates a new random UUID only if publicId is null
+		}
+	}
 
 	@Override
 	public String getUsername() {
@@ -82,12 +85,6 @@ public class UserEntity implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
-
-
-	//public void setEncryptedPassword(String encryptedPassword) {
-	//	this.Password = encryptedPassword;
-		// TODO Auto-generated method stub
-		
 	}
 	
 

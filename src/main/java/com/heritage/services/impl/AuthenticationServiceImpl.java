@@ -2,13 +2,11 @@ package com.heritage.services.impl;
 
 import com.heritage.dto.*;
 import com.heritage.entity.Role;
-import com.heritage.entity.UserEntity;
-import com.heritage.entity.UserProject;
+import com.heritage.entity.User;
 import com.heritage.repository.UserRepository;
 import com.heritage.services.AuthenticationService;
 import com.heritage.services.JWTService;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,9 +15,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -31,8 +26,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final PasswordEncoder passwordEncoder;
 
 
-    public UserEntity signup(SignUpRequest signUpRequest) {
-        UserEntity user = new UserEntity();
+    public User signup(SignUpRequest signUpRequest) {
+        User user = new User();
         user.setEmail(signUpRequest.getEmail());
         user.setFirstName(signUpRequest.getFirstName());
         user.setLastName(signUpRequest.getLastName());
@@ -74,7 +69,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     public JwtAuthenticationResponse refreshToken(RefreshTokenRequest refreshTokenRequest){
         String userEmail = jwtService.extractUserName(refreshTokenRequest.getToken());
-        UserEntity user = userRepository.findByEmail(userEmail).orElseThrow();
+        User user = userRepository.findByEmail(userEmail).orElseThrow();
         if(jwtService.isTokenValid(refreshTokenRequest.getToken(), user)){
             var jwt = jwtService.generateToken(user);
 

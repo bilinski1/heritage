@@ -1,10 +1,10 @@
 package com.heritage.services;
 import com.heritage.dto.*;
-import com.heritage.entity.UserEntity;
+import com.heritage.entity.User;
 
 public interface AuthenticationService {
 
-        UserEntity signup(SignUpRequest userDto);
+        User signup(SignUpRequest userDto);
 
         JwtAuthenticationResponse signin(SigninRequest signinRequest);
 

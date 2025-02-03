@@ -21,6 +21,6 @@ public class UserProject {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id", nullable = false)
 	@JsonBackReference
-	private UserEntity user;
+	private User user;
 
 }

@@ -1,7 +1,7 @@
 package com.heritage.controller;
 
 import com.heritage.dto.*;
-import com.heritage.entity.UserEntity;
+import com.heritage.entity.User;
 import com.heritage.services.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,7 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
     @PostMapping("/signup")
-    public ResponseEntity<UserEntity> signup(@RequestBody SignUpRequest signUpRequest) throws Exception {
+    public ResponseEntity<User> signup(@RequestBody SignUpRequest signUpRequest) throws Exception {
         return ResponseEntity.ok(authenticationService.signup(signUpRequest));
     }
 
