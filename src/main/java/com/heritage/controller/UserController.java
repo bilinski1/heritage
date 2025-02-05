@@ -4,10 +4,9 @@ import com.heritage.dto.UserDto;
 import com.heritage.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/user")
@@ -19,6 +18,22 @@ public class UserController {
     @GetMapping("/{publicId}")
     public ResponseEntity<UserDto> getUserByPublicId(@PathVariable String publicId) {
         return ResponseEntity.ok(userService.getUser(publicId));
+    }
+
+    @PutMapping("{/publicId}")
+    public ResponseEntity<UserDto> updateUser(@PathVariable String publicId, @RequestBody UserDto userDto) {
+        return ResponseEntity.ok(userService.updateUser(publicId, userDto));
+    }
+
+    @DeleteMapping("/{publicId")
+    public ResponseEntity<Void> deleteUserByPublicId(@PathVariable String publicId) {
+        userService.deleteUser(publicId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/allUsers")
+    public ResponseEntity<List<UserDto>> getAllUsers() {
+        return ResponseEntity.ok(userService.getAllUsers());
     }
 
     @GetMapping
