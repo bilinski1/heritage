@@ -7,21 +7,20 @@ import com.heritage.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
-    private final ModelMapper modelMapper = new ModelMapper();
+    private final ModelMapper modelMapper;
 
     @Override
     public UserDetailsService userDetailsService() {
@@ -31,7 +30,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getUser(String publicId) {
-        Optional<User> userOptional = Optional.ofNullable(userRepository.findByPublicId(publicId));
+        Optional<User> userOptional = userRepository.findByPublicId(publicId);
         if (userOptional.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
         }
@@ -39,8 +38,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto getUserByUserId(String userId) {
-        return null;
+    public List<UserDto> getAllUsers() {
+        // Fetch all user entities from the database
+        List<User>  users = userRepository.findAll();
+        // Use ModelMapper to map entities to DTOs
+        return users.stream().map(user -> modelMapper.map(user, UserDto.class)).toList();
+    }
+
+    @Override
+    public UserDto getUserByUserId(String publicId) {
+        Optional<User> user = Optional.ofNullable(userRepository.findByPublicId(publicId)
+                .orElseThrow(() -> new
+                        ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with id " + publicId)));
+        return modelMapper.map(user.get(), UserDto.class);
     }
 
     @Override

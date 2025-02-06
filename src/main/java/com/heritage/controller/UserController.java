@@ -16,16 +16,16 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/{publicId}")
-    public ResponseEntity<UserDto> getUserByPublicId(@PathVariable String publicId) {
-        return ResponseEntity.ok(userService.getUser(publicId));
+    public ResponseEntity<UserDto> getUserByUserId(@PathVariable String publicId) {
+        return ResponseEntity.ok(userService.getUserByUserId(publicId));
     }
 
-    @PutMapping("{/publicId}")
+    @PutMapping("/{publicId}")
     public ResponseEntity<UserDto> updateUser(@PathVariable String publicId, @RequestBody UserDto userDto) {
         return ResponseEntity.ok(userService.updateUser(publicId, userDto));
     }
 
-    @DeleteMapping("/{publicId")
+    @DeleteMapping("/{publicId}")
     public ResponseEntity<Void> deleteUserByPublicId(@PathVariable String publicId) {
         userService.deleteUser(publicId);
         return ResponseEntity.noContent().build();

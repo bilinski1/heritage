@@ -13,21 +13,13 @@ import com.heritage.entity.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 	Optional<User> findByEmail(String email);
-	User findByRole(Role role);
-	User findByPublicId(String publicId);
+	Optional<User> findByRole(Role role);
+	Optional<User> findByPublicId(String publicId);
 	boolean existsByEmail(String email);
 
 
-	//UserEntity findByEmail(String email);
-	//User save(Optional<User> user);
-	
-	/*
-	@Override
-	default List<User> findAll() {
-		// TODO Auto-generated method stub
-		return null;
-		*/
-	
+
+
 
 
 }

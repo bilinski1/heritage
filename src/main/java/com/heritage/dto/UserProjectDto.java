@@ -10,7 +10,6 @@ public class UserProjectDto {
         private String name;
         private String description;
         private Long userId;
-
-
+        private String userEmail;
 
 }

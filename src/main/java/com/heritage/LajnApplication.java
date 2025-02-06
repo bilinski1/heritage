@@ -3,7 +3,6 @@ package com.heritage;
 import com.heritage.entity.Role;
 import com.heritage.entity.User;
 import com.heritage.repository.UserRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -24,11 +23,6 @@ public class LajnApplication implements CommandLineRunner {
 		SpringApplication.run(LajnApplication.class, args);
 	}
 
-	//Model mapper for DTO
-	@Bean
-	public ModelMapper modelMapper(){
-		return new ModelMapper();
-	}
 	
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -38,7 +32,7 @@ public class LajnApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		User adminAccount = userRepository.findByRole(Role.ADMIN);
+		User adminAccount = userRepository.findByRole(Role.ADMIN).orElse(null);
 		if(null == adminAccount){
 			User user = new User();
 			String uniqueID = UUID.randomUUID().toString();

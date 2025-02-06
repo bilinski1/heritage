@@ -21,6 +21,8 @@ public class JwtAuthenticationResponse {
     private String email;
     private String password;
     private String encryptedPassword;
+    private String publicId;
+    //annotation to eliminate infinite loop
     @JsonManagedReference
     private List<UserProject> projects;
     private Role role;
