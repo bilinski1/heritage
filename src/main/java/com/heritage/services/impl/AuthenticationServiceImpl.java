@@ -7,6 +7,7 @@ import com.heritage.repository.UserRepository;
 import com.heritage.services.AuthenticationService;
 import com.heritage.services.JWTService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
 
@@ -31,6 +33,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         user.setLastName(signUpRequest.getLastName());
         user.setRole(Role.USER);
         user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
+        log.info("Rejestracja użytkownika: {}", user);
+
 
         if (!userRepository.existsByEmail(user.getEmail())) {
             userRepository.save(user);
