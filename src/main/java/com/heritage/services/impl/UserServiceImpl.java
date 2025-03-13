@@ -47,11 +47,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getUserByUserId(String publicId) {
-        Optional<User> user = Optional.ofNullable(userRepository.findByPublicId(publicId)
-                .orElseThrow(() -> new
-                        ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with id " + publicId)));
-        return modelMapper.map(user.get(), UserDto.class);
+        User user = userRepository.findByPublicId(publicId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found with id " + publicId));
+        return modelMapper.map(user, UserDto.class);
     }
+
 
     @Override
     public UserDto updateUser(String userId, UserDto user) {

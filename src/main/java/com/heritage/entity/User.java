@@ -30,7 +30,7 @@ public class User implements UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@Column(name = "publicId", updatable = false, nullable = false)
+	@Column(name = "public_id", updatable = false, nullable = false)
 	private String publicId;
 	@Column(nullable=false, length=120, name = "email")
 	public String email;

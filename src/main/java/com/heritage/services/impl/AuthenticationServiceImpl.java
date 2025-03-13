@@ -57,6 +57,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         var refreshToken = jwtService.generateRefreshToken(new HashMap<>(), user);
 ;
 
+        JwtAuthenticationResponse jwtAuthenticationResponse = getJwtAuthenticationResponse(user, jwt, refreshToken);
+
+
+        return jwtAuthenticationResponse;
+    }
+
+    private static JwtAuthenticationResponse getJwtAuthenticationResponse(User user, String jwt, String refreshToken) {
         JwtAuthenticationResponse jwtAuthenticationResponse = new JwtAuthenticationResponse();
         jwtAuthenticationResponse.setEmail(user.getEmail());
         jwtAuthenticationResponse.setAge(user.getAge());
@@ -64,7 +71,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         jwtAuthenticationResponse.setRefreshToken(refreshToken);
         jwtAuthenticationResponse.setRole(Role.USER);
         jwtAuthenticationResponse.setProjects(new ArrayList<>(user.getAchievements()));
-
+        jwtAuthenticationResponse.setPublicId(user.getPublicId());
         return jwtAuthenticationResponse;
     }
 
